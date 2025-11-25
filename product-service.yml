@@ -20,11 +20,6 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
 
 server:
   port: 8081
@@ -46,6 +41,3 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 2
       failureRateThreshold: 50
       waitDurationInOpenState: 10000
-
-springdoc:
-  default-produces-media-type: application/json
