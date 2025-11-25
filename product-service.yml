@@ -17,10 +17,6 @@ spring:
         format_sql: true
         default_schema: product_service
   cloud:
-    discovery:
-      enabled: true
-    config:
-      enabled: true
     openfeign:
       circuitbreaker:
         enabled: true
@@ -29,20 +25,6 @@ spring:
     port: 5672
     username: guest
     password: guest
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: "http://localhost:9090/realms/ecom_ms"
-
-profile:
-  service:
-    url: http://localhost:8082
-
-review:
-  service:
-    url: http://localhost:8083
 
 server:
   port: 8081
