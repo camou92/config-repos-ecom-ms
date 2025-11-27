@@ -1,9 +1,10 @@
 spring:
   config:
     activate:
-      on-profile: docker
+      on-profile: "docker"
+    #import: optional:configserver:http://config-service:9999
   datasource:
-    url: jdbc:postgresql://postgres:5433/ecom_db?currentSchema=product_service
+    url: jdbc:postgresql://postgres:5432/ecom_db?currentSchema=product_service
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -16,10 +17,60 @@ spring:
       hibernate:
         format_sql: true
         default_schema: product_service
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://keycloak:9090/realms/ecom_ms"
+
   cloud:
+    discovery:
+      enabled: true
+    config:
+      enabled: true
     openfeign:
       circuitbreaker:
         enabled: true
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+
+  flyway:
+    enabled: true
+    default-schema: product_service
+    schemas: product_service
+    locations: classpath:db/migration
+
+aws:
+  s3:
+    access: ${AWS_S3_ACCESS}
+    secret: ${AWS_S3_SECRET}
+    region: ${AWS_S3_REGION}
+    bucket: ${AWS_S3_BUCKET}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
 
 server:
   port: 8081
@@ -36,3 +87,6 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 2
       failureRateThreshold: 50
       waitDurationInOpenState: 10000
+
+springdoc:
+  default-produces-media-type: application/json
