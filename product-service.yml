@@ -28,11 +28,6 @@ server:
     include-stacktrace: always
     include-binding-errors: always
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 
 resilience4j.circuitbreaker:
   configs:
