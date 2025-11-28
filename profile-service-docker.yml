@@ -2,6 +2,7 @@ spring:
   config:
     activate:
       on-profile: "docker"
+
   datasource:
     url: jdbc:postgresql://postgres:5432/ecom_db?currentSchema=profile_service
     username: postgres
@@ -16,6 +17,19 @@ spring:
       hibernate:
         format_sql: true
         default_schema: profile_service
+
+  flyway:
+    enabled: true
+    default-schema: profile_service
+    schemas: profile_service
+    locations: classpath:db/migration
+
+aws:
+  s3:
+    access: ${AWS_S3_ACCESS}
+    secret: ${AWS_S3_SECRET}
+    region: ${AWS_S3_REGION}
+    bucket: ${AWS_S3_BUCKET}
 
 server:
   port: 8082
