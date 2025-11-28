@@ -19,20 +19,9 @@ spring:
         default_schema: product_service
 
   cloud:
-    discovery:
-      enabled: true
-    config:
-      enabled: true
     openfeign:
       circuitbreaker:
         enabled: true
-
-  rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: guest
-    password: guest
-
 
   flyway:
     enabled: true
@@ -46,18 +35,6 @@ aws:
     secret: ${AWS_S3_SECRET}
     region: ${AWS_S3_REGION}
     bucket: ${AWS_S3_BUCKET}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  tracing:
-    sampling:
-      probability: 1.0
-  zipkin:
-    tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
 
 server:
   port: 8081
@@ -74,6 +51,3 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 2
       failureRateThreshold: 50
       waitDurationInOpenState: 10000
-
-springdoc:
-  default-produces-media-type: application/json
