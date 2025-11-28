@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:postgresql://postgres:5433/ecom_db?currentSchema=order_service
+    url: jdbc:postgresql://postgres:5432/ecom_db?currentSchema=order_service
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -16,6 +16,25 @@ spring:
       hibernate:
         format_sql: true
         default_schema: order_service
+
+  flyway:
+    enabled: true
+    default-schema: order_service
+    schemas: order_service
+    locations: classpath:db/migration
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: camoudev092@gmail.com
+    password: whkv lbkb ixde yztm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   port: 8084
