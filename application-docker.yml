@@ -3,7 +3,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: "http://keycloak:8080/realms/ecom_ms"
+          issuer-uri: "http://192.168.49.2:30090/realms/ecom_ms"
   cloud:
     discovery:
       enabled: true
