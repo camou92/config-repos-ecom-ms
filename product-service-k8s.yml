@@ -1,0 +1,53 @@
+spring:
+  config:
+    activate:
+      on-profile: "k8s"
+    #import: optional:configserver:http://config-service:9999
+  datasource:
+    url: jdbc:postgresql://postgres:5432/ecom_db?currentSchema=product_service
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: product_service
+
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+  flyway:
+    enabled: true
+    default-schema: product_service
+    schemas: product_service
+    locations: classpath:db/migration
+
+aws:
+  s3:
+    access: ${AWS_S3_ACCESS}
+    secret: ${AWS_S3_SECRET}
+    region: ${AWS_S3_REGION}
+    bucket: ${AWS_S3_BUCKET}
+
+server:
+  port: 8081
+  error:
+    include-message: always
+    include-stacktrace: always
+    include-binding-errors: always
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000

@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: docker
+      on-profile: k8s
   datasource:
     url: jdbc:postgresql://postgres:5432/ecom_db?currentSchema=review_service
     username: postgres
